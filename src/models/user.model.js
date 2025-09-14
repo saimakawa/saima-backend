@@ -1,3 +1,18 @@
+// ✅ 5. user.model.js – Database schema aur methods
+// ✅ Is file ka role:
+
+// User ka structure define karta hai.
+
+// Password hash karta hai jab save hota hai.
+
+// JWT token generate karta hai (access aur refresh token dono).
+
+// ✅ Important:
+
+// pre("save") hook password ko encrypt karta hai.
+
+// generateAccessToken aur generateRefreshToken methods token create karte hain.
+
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -60,7 +75,7 @@ userSchema.methods.generateAccessToken = function () {
     {
       _id: this._id,
       email: this.email,
-      username: this.userSchema,
+      username: this.username,
       fullname: this.fullname,
     },
     process.env.ACCESS_TOKEN_SECRET,

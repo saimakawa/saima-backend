@@ -1,7 +1,18 @@
+// ✅ 1. index.js – Server start karne ka file
+// Is file ka role:
+// Server ko shuru karna.
+// Database (MongoDB) se connect karna.
+// Errors ko handle karna.
+// Important changes:
+// process.env.PORT || 8000 ka fallback diya hai. Agar environment mein PORT define nahi hai toh 8000 port use hoga.
+// .catch block mein error ko handle kiya hai.
+// Kaise kaam karta hai:
+// connectDB() se MongoDB se connection banaya.
+// Agar connection successful hai, toh server port par listen karta hai.
+// Agar error hai toh console mein print karta hai.
 // require("dotenv").config({ path: ".env" });
+
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import { DB_NAME } from "./constants.js";
 import connectDB from "./db/index.js";
 import { app } from "./app.js";
 
@@ -11,9 +22,8 @@ connectDB()
     app.on("error", (err) => {
       console.log("Error", err);
     });
-    app.listen(process.env.PORT || 8000, () => {
-      console.log(`Server is running at port : ${process.env.PORT}`);
-    });
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
   })
   .catch((err) => {
     console.log("Mongo DB connection failed !!! ", err);

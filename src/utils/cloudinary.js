@@ -1,3 +1,16 @@
+// ✅ 4. cloudinary.js – Cloud storage ke liye config
+// Is file ka role:
+
+// Cloudinary service ko configure karta hai.
+
+// API key, secret aur cloud name environment se leta hai.
+
+// ✅ Important:
+
+// Upload logic ko controller mein await ke saath diya gaya tha.
+
+// Yaha sirf config diya hai.
+
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 cloudinary.config({
@@ -10,12 +23,13 @@ const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
     // upload the file on cloudinary
-    const response = cloudinary.uploader.upload(localFilePath, {
+    const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
+
     // file has been uploaded succesfully
     // console.log("file is uploaded on cloudinary ", (await response).url);
-    fs.unlinkSync(localFilePath)
+    fs.unlinkSync(localFilePath);
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath); // remove the locall saved temporary file as the upload operation got faild
